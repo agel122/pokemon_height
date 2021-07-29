@@ -1,0 +1,29 @@
+<html>
+    <head>
+      <title>Pokemon Height</title>
+    </head>
+    <body>
+        <div>
+          <header>
+              <h3>Here you can add pokemon's name and get the list of pokemons, sorted by height</h3>
+              <p>(https://pokeapi.co/api/v2/pokemon/{id or name}/ is used to get height)</p>
+          </header>
+          <br>
+          <h3>Add pokemon:</h3>
+          <form action="" method="post">
+              {% csrf_token %}
+              {{form}}
+              <input type="submit" value="add">
+              <br>{% if message %}
+                  {{message}}
+              {% endif %}
+          </form>
+          <br>
+          <h3>The list of pokemons, sorted by height:</h3>
+          {% for pokemon in pokemon_names_heights %}
+              <p>Pokemon {{pokemon.pokemon_name}} has height {{pokemon.pokemon_height}}
+              <a href="{% url 'delete_pokemon' pokemon.pokemon_name %}">delete pokemon</a></p>
+          {% endfor %}
+        </div>
+    </body>
+</html>
