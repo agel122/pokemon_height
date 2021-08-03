@@ -4,6 +4,7 @@ from .forms import PokemonForm
 import requests
 # import concurrent.futures
 from django.db import IntegrityError
+from django.db.models import Avg
 
 
 def pokelistview(request):
@@ -25,6 +26,7 @@ def pokelistview(request):
         'pokemon_names_heights': pokemons,
         'form': form,
         'message': message,
+        'average_height': Pokemon.objects.all().aggregate(average=Avg('pokemon_height'))['average'],
     }
     return render(request, 'pokelist.html', context)
 
